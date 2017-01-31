@@ -29,7 +29,7 @@ class CoreTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     *
+     * @test
      */
     public function should_render_tag()
     {
@@ -37,5 +37,26 @@ class CoreTest extends PHPUnit_Framework_TestCase
         $result = $core->tag(['p']);
 
         $this->assertEquals('<p></p>', $result);
+    }
+
+    /**
+     * @test
+     * @dataProvider should_parse_id_and_classes_from_tag_data_provider
+     */
+    public function should_parse_id_and_classes_from_tag($param, $result)
+    {
+        $core   = new Core();
+        $result = $core->tag([$param]);
+
+        $this->assertEquals($result, $result);
+    }
+
+    public function should_parse_id_and_classes_from_tag_data_provider()
+    {
+        return [
+            ['p#id.class1.class2', "<p id='id'></p>"],
+            ['div.class1', "<div class='class1'></div>"],
+            ['span', "<span></span>"],
+        ];
     }
 }

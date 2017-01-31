@@ -31,11 +31,62 @@ class Core
 
     protected function openTag($tag)
     {
-        $this->str .= "<{$tag}>";
+        $result = $this->extractTagsAttribute($tag);
+
+        $this->str .= "<{$result['tag']}";
+
+        if (isset($result['id'])) {
+            $this->str .= " id='{$result['id']}'";
+        }
+
+        $this->str .= '>';
     }
 
     protected function closeTag($tag)
     {
-        $this->str .= "</{$tag}>";
+        $curTag = $this->extractTag($tag);
+        $this->str .= "</{$curTag['tag']}>";
+    }
+
+    protected function extractTagsAttribute($tag)
+    {
+        $id     = $this->extractId($tag);
+        $curTag = $this->extractTag($tag);
+        $class  = $this->extractClasses($tag);
+
+        return array_merge($curTag, array_merge($id, $class));
+    }
+
+    protected function extractTag($tag)
+    {
+        preg_match('/(^.*?)(?=(\.|#))|(.*)/', $tag, $match);
+
+        if (isset($match[0])) {
+            return ['tag' => $match[0]];
+        }
+
+        return [];
+    }
+
+    protected function extractId($tag)
+    {
+        preg_match('/(?<=(#))(id)/', $tag, $id);
+
+        if (isset($id[0])) {
+            return ['id' => $id[0]];
+        }
+
+        return [];
+    }
+
+    protected function extractClasses($tag)
+    {
+        preg_match('/(?<=(\.))/', $tag, $classes);
+
+        if (isset($classes[0])) {
+            return ['classes' => $classes[0]];
+        }
+
+        return [];
     }
 }
