@@ -59,4 +59,15 @@ class CoreTest extends PHPUnit_Framework_TestCase
             ['span', "<span></span>"],
         ];
     }
+
+    /**
+     * @test
+     */
+    public function should_return_basic_html_template()
+    {
+        $core = new Core();
+        $result = $core->html5();
+
+        $this->assertEquals('<!DOCTYPE html><html><head></head><body></body></html>', $result);
+    }
 }

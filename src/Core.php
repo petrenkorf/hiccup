@@ -11,8 +11,18 @@ class Core
         $this->str = '';
     }
 
+    public function html5(array $tag = [])
+    {
+        return '<!DOCTYPE html><html><head></head><body>'.$this->tag($tag).'</body></html>';
+    }
+
     public function tag(array $tag = [])
     {
+        if (count($tag) == 0)
+        {
+            return '';
+        }
+
         $this->openTag($tag[0]);
 
         if ($this->hasNestedTag($tag)) {
