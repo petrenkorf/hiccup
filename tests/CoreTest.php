@@ -63,11 +63,22 @@ class CoreTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function should_return_basic_html_template()
+    public function should_return_basic_html5_template()
     {
         $core = new Core();
         $result = $core->html5();
 
         $this->assertEquals('<!DOCTYPE html><html><head></head><body></body></html>', $result);
+    }
+
+    /**
+     * @test
+     */
+    public function should_return_basic_html_template()
+    {
+        $core = new Core();
+        $result = $core->html();
+
+        $this->assertEquals('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head></head><body></body></html>', $result);
     }
 }

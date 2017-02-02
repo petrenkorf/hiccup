@@ -16,6 +16,11 @@ class Core
         return '<!DOCTYPE html><html><head></head><body>'.$this->tag($tag).'</body></html>';
     }
 
+    public function html(array $tag = [])
+    {
+        return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head></head><body>'.$this->tag($tag).'</body></html>';
+    }
+
     public function tag(array $tag = [])
     {
         if (count($tag) == 0)
